@@ -24,3 +24,8 @@ val onSecondary_D = Color(0xFFFFFFFF)            // White text on the secondary 
 val onTertiary_D = Color(0xFFFFFFFF)           // White text on the tertiary color
 val onBackground_D = Color(0xFFFFFFFF)         // White text on the background color
 val onSurface_D = Color(0xFFFFFFFF)             // White text on the surface color
+
+val black20 = Color(0x33000000)
+val black40 = Color(0x66000000)
+val black60 = Color(0x99000000)
+val black80 = Color(0xCC000000)

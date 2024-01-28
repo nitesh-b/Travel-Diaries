@@ -13,6 +13,7 @@ import androidx.compose.material.OutlinedTextField
 
 
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,9 +24,11 @@ import androidx.compose.runtime.setValue
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -33,9 +36,10 @@ import androidx.compose.ui.unit.dp
 fun InputTextField(
     inputValue: String,
     onValueChanged: (String) -> Unit,
-    modifier: Modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
+    modifier: Modifier = Modifier.padding(vertical = 2.dp),
     label: String,
     isSecure: Boolean = false,
+    textAlign: TextAlign? = TextAlign.Start
 
     ) {
     OutlinedTextField(
@@ -54,7 +58,8 @@ fun InputTextField(
             unfocusedBorderColor = MaterialTheme.colorScheme.secondary
         ),
         label = { Text(text = label) },
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        textStyle = LocalTextStyle.current.copy(textAlign = textAlign)
     )
 
 }

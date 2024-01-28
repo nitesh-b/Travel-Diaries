@@ -1,15 +1,25 @@
 package au.com.monk.traveldiaries.ui.screens
 
+import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+
+
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,62 +29,145 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.monk.traveldiaries.R
+import au.com.monk.traveldiaries.ui.components.ButtonType
 import au.com.monk.traveldiaries.ui.components.InputTextField
 import au.com.monk.traveldiaries.ui.components.RegularButton
 import au.com.monk.traveldiaries.ui.theme.TravelDiariesTheme
 
 @Composable
-fun LoginScreenView(modifier: Modifier = Modifier) {
+fun LoginScreenView() {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    Box(modifier = Modifier.fillMaxSize()) {
-        Image(
-            painter = painterResource(id = R.drawable.background),
-            contentDescription = "Harbour Bridge",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillHeight
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxSize()
+    TravelDiariesTheme {
+        Column(modifier = Modifier
+            .fillMaxSize()
         ) {
+
+            Box(
+                modifier = Modifier.fillMaxWidth()
+                    .weight(0.5F)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.background),
+                    contentDescription = "Harbour Bridge",
+                    contentScale = ContentScale.FillBounds,
+                    colorFilter = ColorFilter.tint(
+                        MaterialTheme.colorScheme.primary,
+                        BlendMode.Multiply
+                    ),
+                    modifier = Modifier.fillMaxSize()
+                )
+
+                Image(
+                    painterResource(id = R.drawable.travel_diaries__1_),
+                    null,
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.Fit,
+                )
+            }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                modifier = Modifier
+                    .padding(16.dp)
+                    .weight(0.5F)
+
+
             ) {
-                InputTextField(
-                    inputValue = username,
-                    onValueChanged = {
-                        username = it
-                    },
-                    label = "Username"
-                )
-                InputTextField(
-                    inputValue = password,
-                    onValueChanged = {
-                        password = it
-                    },
-                    label = "Password"
-                )
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1F)
+                ) {
 
-                RegularButton(
-                    title = "Sign In",
-                    onClick = {
 
+                    InputTextField(
+                        inputValue = username,
+                        onValueChanged = {
+                            username = it
+                        },
+                        label = "Username"
+                    )
+                    InputTextField(
+                        inputValue = password,
+                        onValueChanged = {
+                            password = it
+                        },
+                        label = "Password"
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    RegularButton(
+                        type = ButtonType.Primary,
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .height(48.dp),
+                        title = "Sign In",
+                        onClick = {
+
+                        }
+                    )
+
+                }
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "Don't have an account?")
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.safeContentPadding()
+
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.facebook),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .background(
+                                    Color.White, RoundedCornerShape(20.dp)
+                                )
+                                .height(40.dp)
+                                .width(40.dp)
+                                .padding(4.dp)
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.gmail),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .background(
+                                    Color.White, RoundedCornerShape(20.dp)
+                                )
+                                .height(40.dp)
+                                .width(40.dp)
+                                .padding(4.dp)
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.apple),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .background(
+                                    Color.White, RoundedCornerShape(20.dp)
+                                )
+                                .height(40.dp)
+                                .width(40.dp)
+                                .padding(4.dp)
+                        )
                     }
-                )
+
+                }
 
             }
 
         }
+
 
     }
 
