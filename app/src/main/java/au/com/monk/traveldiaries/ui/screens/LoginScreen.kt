@@ -1,16 +1,13 @@
 package au.com.monk.traveldiaries.ui.screens
 
-import android.graphics.Paint.Align
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-
-
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -41,18 +36,33 @@ import au.com.monk.traveldiaries.ui.components.ButtonType
 import au.com.monk.traveldiaries.ui.components.InputTextField
 import au.com.monk.traveldiaries.ui.components.RegularButton
 import au.com.monk.traveldiaries.ui.theme.TravelDiariesTheme
+import au.com.monk.traveldiaries.viewmodels.LoginViewModel
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import au.com.monk.traveldiaries.data.ViewState
+import au.com.monk.traveldiaries.routes.Route
+
 
 @Composable
-fun LoginScreenView() {
+fun LoginScreenView(navController: NavHostController, loginViewModel : LoginViewModel) {
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val userAccountState by loginViewModel.userAccount.observeAsState()
+
+    fun loginUser(){
+        loginViewModel.loginUser(email = username, password = password)
+    }
     TravelDiariesTheme {
         Column(modifier = Modifier
             .fillMaxSize()
         ) {
 
             Box(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .weight(0.5F)
             ) {
                 Image(
@@ -111,9 +121,24 @@ fun LoginScreenView() {
                             .height(48.dp),
                         title = "Sign In",
                         onClick = {
-
+                                loginUser()
                         }
                     )
+
+                    when(userAccountState){
+                        is ViewState.Failure -> {
+                            println("Failed")
+                        }
+                        is ViewState.Loading -> {
+                            println("Loading")
+                        }
+                        is ViewState.Success -> {
+                            navController.navigate(route = Route.navigator.route)
+                        }
+                        null -> {
+                            println("Null")
+                        }
+                    }
 
                 }
 
@@ -178,6 +203,6 @@ fun LoginScreenView() {
 @Composable
 fun LoginScreenPreview() {
     TravelDiariesTheme {
-        LoginScreenView()
+        LoginScreenView(rememberNavController(), LoginViewModel())
     }
 }

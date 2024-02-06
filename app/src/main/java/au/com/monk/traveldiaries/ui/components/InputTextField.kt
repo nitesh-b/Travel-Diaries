@@ -59,7 +59,7 @@ fun InputTextField(
         ),
         label = { Text(text = label) },
         shape = RoundedCornerShape(8.dp),
-        textStyle = LocalTextStyle.current.copy(textAlign = textAlign)
+        textStyle = LocalTextStyle.current.copy(textAlign = textAlign!!)
     )
 
 }
