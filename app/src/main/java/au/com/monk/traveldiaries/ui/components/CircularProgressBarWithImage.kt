@@ -36,14 +36,14 @@ fun CircularProgressBarWithImage(progressValue: Float){
 
             )
 
-        CircularProgressIndicator(
-            modifier = Modifier.width(28.dp)
-                .height(28.dp),
-            color = MaterialTheme.colorScheme.secondary,
-            trackColor = MaterialTheme.colorScheme.tertiary,
-            strokeCap = StrokeCap.Round,
-            strokeWidth = 4.dp
-        )
+//        CircularProgressIndicator(
+//            modifier = Modifier.width(28.dp)
+//                .height(28.dp),
+//            color = MaterialTheme.colorScheme.secondary,
+//            trackColor = MaterialTheme.colorScheme.tertiary,
+//            strokeCap = StrokeCap.Round,
+//            strokeWidth = 4.dp
+//        )
     }
 
 

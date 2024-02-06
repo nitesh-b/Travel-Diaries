@@ -43,6 +43,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import au.com.monk.traveldiaries.data.ViewState
 import au.com.monk.traveldiaries.routes.Route
+import au.com.monk.traveldiaries.ui.components.LoadingView
 
 
 @Composable
@@ -50,6 +51,9 @@ fun LoginScreenView(navController: NavHostController, loginViewModel : LoginView
 
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var isLoading by remember {
+        mutableStateOf(false)
+    }
     val userAccountState by loginViewModel.userAccount.observeAsState()
 
     fun loginUser(){
@@ -128,11 +132,14 @@ fun LoginScreenView(navController: NavHostController, loginViewModel : LoginView
                     when(userAccountState){
                         is ViewState.Failure -> {
                             println("Failed")
+                            isLoading = false
                         }
                         is ViewState.Loading -> {
                             println("Loading")
+                            isLoading = true
                         }
                         is ViewState.Success -> {
+                            isLoading = false
                             navController.navigate(route = Route.navigator.route)
                         }
                         null -> {
@@ -186,17 +193,13 @@ fun LoginScreenView(navController: NavHostController, loginViewModel : LoginView
                                 .padding(4.dp)
                         )
                     }
-
                 }
-
             }
-
         }
-
-
+        if(isLoading){
+            LoadingView()
+        }
     }
-
-
 }
 
 @Preview(showBackground = true)

@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.monk.traveldiaries.R
+import au.com.monk.traveldiaries.ui.screens.tabs.ExploreTab
 
 @Composable
 fun TabNavigator() {
@@ -64,7 +65,7 @@ fun TabNavigator() {
             when (selectedTabIndex) {
                 0 -> {
                     // Content for Tab 1
-                    Text(text = "Tab 1 Content")
+                    ExploreTab()
                 }
                 1 -> {
                     // Content for Tab 2

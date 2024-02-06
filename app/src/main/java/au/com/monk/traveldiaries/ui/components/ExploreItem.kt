@@ -29,10 +29,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.monk.traveldiaries.R
+import au.com.monk.traveldiaries.data.ExploreItem
 import coil.compose.AsyncImage
 
 @Composable
-fun ExploreItem() {
+fun ExploreItem(exploreItem: ExploreItem) {
     Column(
         modifier = Modifier
             .border(
@@ -43,7 +44,7 @@ fun ExploreItem() {
             .padding(8.dp)) {
         Row {
             AsyncImage(
-                model = "https://picsum.photos/200",
+                model = exploreItem.userImageThumbnail,
                 contentDescription = "Profile image",
                 modifier = Modifier
                     .size(50.dp)
@@ -54,17 +55,17 @@ fun ExploreItem() {
                     .padding(8.dp)
 
             ) {
-                TextLabel(title = "First name", style = TextStyle.Regular)
-                TextLabel(title = "@Handke", style = TextStyle.Small)
+                TextLabel(title = exploreItem.userName, style = TextStyle.Regular)
+                TextLabel(title = exploreItem.userHandle, style = TextStyle.Small)
 
             }
             Spacer(Modifier.weight(1F))
             CircularProgressBarWithImage(0.5F)
             Spacer(Modifier.width(4.dp))
-            TextLabel(title = "4 days ago", style = TextStyle.Small)
+            TextLabel(title = exploreItem.datePostedTS.toString(), style = TextStyle.Small)
 
         }
-        AsyncImage(model = "https://picsum.photos/800",
+        AsyncImage(model = exploreItem.contentImage,
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
@@ -85,7 +86,7 @@ fun ExploreItem() {
 
         ) {
             Icon(imageVector = Icons.Default.LocationOn, contentDescription = null)
-            TextLabel(title = "Tokyo, Japan", style = TextStyle.Medium)
+            TextLabel(title = exploreItem.location, style = TextStyle.Medium)
             Spacer(modifier = Modifier.weight(1F))
             Icon(painter = painterResource(id = R.drawable.icon_fist_bump_open),
                 contentDescription = null,
@@ -110,5 +111,12 @@ fun ExploreItem() {
 @Preview
 @Composable
 fun PreviewExploreItem() {
-    ExploreItem()
+    ExploreItem(au.com.monk.traveldiaries.data.ExploreItem("https://picsum.photos/200",
+
+        userName = "Rahat Ali",
+        userHandle = "@Rahat554",
+        datePostedTS = 4564958,
+        contentImage = "https://picsum.photos/600",
+        location = "Tokyo Japan"
+        ))
 }
