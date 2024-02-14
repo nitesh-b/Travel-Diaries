@@ -5,6 +5,7 @@ data class ExploreItem(val userImageThumbnail: String,
     val userHandle: String,
     val datePostedTS: Long,
     val contentImage: String,
-    val location: String
+    val location: String,
+    val title: String?
 
     )
