@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -50,7 +51,7 @@ fun InputTextField(
         modifier = modifier
             .padding(4.dp)
             .fillMaxWidth()
-            .height(56.dp),
+            .wrapContentHeight(),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = MaterialTheme.colorScheme.onBackground,
             backgroundColor = MaterialTheme.colorScheme.background, // Custom focused border color

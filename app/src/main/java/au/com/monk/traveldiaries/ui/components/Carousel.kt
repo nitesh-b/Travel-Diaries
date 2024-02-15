@@ -61,7 +61,7 @@ fun Carousel(modifier: Modifier = Modifier, carouselContents: List<CarouselConte
                                 ).absoluteValue
 
                         alpha = lerp(
-                            start = 0.1f,
+                            start = 0.5f,
                             stop = 1f,
                             fraction = 1f - pageOffset.coerceIn(0f, 1f)
                         )

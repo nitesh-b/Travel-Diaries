@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -35,11 +34,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import au.com.monk.traveldiaries.R
-import au.com.monk.traveldiaries.data.ExploreItem
-import au.com.monk.traveldiaries.ui.theme.black20
+import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
+import au.com.monk.traveldiaries.data.exploreitem.ExploreItemType
+import au.com.monk.traveldiaries.enums.ItemTypeEnum
 import au.com.monk.traveldiaries.ui.theme.black40
-import au.com.monk.traveldiaries.ui.theme.black60
 import coil.compose.AsyncImage
+import java.util.UUID
+import kotlin.random.Random
 
 @Composable
 fun ExploreItem(exploreItem: ExploreItem) {
@@ -53,8 +54,7 @@ fun ExploreItem(exploreItem: ExploreItem) {
         modifier = Modifier
     ) {
         Row(
-            modifier = Modifier
-                .padding(16.dp, 16.dp, 16.dp, 4.dp),
+            modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -69,8 +69,7 @@ fun ExploreItem(exploreItem: ExploreItem) {
             )
 
             Column(
-                modifier = Modifier
-                    .padding(8.dp)
+                modifier = Modifier.padding(8.dp)
 
             ) {
                 TextLabel(title = exploreItem.userName, style = TextStyle.Regular)
@@ -85,8 +84,9 @@ fun ExploreItem(exploreItem: ExploreItem) {
         }
 
         Box(modifier = Modifier) {
+
             AsyncImage(
-                model = exploreItem.contentImage,
+                model = exploreItem.content[0].thumbnail,
                 contentDescription = null,
                 modifier = Modifier
                     .onGloballyPositioned {
@@ -128,9 +128,7 @@ fun ExploreItem(exploreItem: ExploreItem) {
             ) {
                 exploreItem.title?.let {
                     TextLabel(
-                        title = it,
-                        style = TextStyle.H6,
-                        color = Color.White
+                        title = it, style = TextStyle.H6, color = Color.White
                     )
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -144,9 +142,7 @@ fun ExploreItem(exploreItem: ExploreItem) {
                     )
 
                     TextLabel(
-                        title = exploreItem.location,
-                        style = TextStyle.Small,
-                        color = Color.White
+                        title = exploreItem.location, style = TextStyle.Small, color = Color.White
                     )
                     Spacer(modifier = Modifier.weight(1F))
                     Icon(
@@ -178,14 +174,22 @@ fun ExploreItem(exploreItem: ExploreItem) {
 fun PreviewExploreItem() {
     ExploreItem(
         ExploreItem(
+            id = UUID.randomUUID().toString(),
             "https://picsum.photos/200",
-
             userName = "Rahat Ali",
             userHandle = "@Rahat554",
             datePostedTS = 4564958,
-            contentImage = "https://picsum.photos/600",
+            content = listOf<ExploreItemType>(
+                ExploreItemType(
+                    "https://picsum.photos/600",
+                    ItemTypeEnum.Image,
+                    UUID.randomUUID().toString(),
+                    false
+                )
+            ),
             location = "Tokyo Japan",
-            title = "Walking around"
+            title = "Walking around",
+            hasFistBump = false
         )
     )
 }

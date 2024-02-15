@@ -1,39 +1,77 @@
 package au.com.monk.traveldiaries.ui.screens.tabs
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import au.com.monk.traveldiaries.data.ExploreItem
+import androidx.lifecycle.viewmodel.compose.viewModel
+import au.com.monk.traveldiaries.data.ViewState
+import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
+import au.com.monk.traveldiaries.data.exploreitem.ExploreItemType
+import au.com.monk.traveldiaries.enums.ItemTypeEnum
 import au.com.monk.traveldiaries.ui.components.ExploreItem
-import com.google.android.play.integrity.internal.i
+import au.com.monk.traveldiaries.ui.components.LoadingView
+import au.com.monk.traveldiaries.viewmodels.ExploreViewModel
 import io.github.serpro69.kfaker.faker
+import java.util.UUID
 
 @Composable
 fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
-    val faker = faker {}
-    val datas = (1..30).map { index ->
-        ExploreItem(
-            userImageThumbnail = String.format("https://picsum.photos/%d/%d", 100, 100),
-            userName = faker.name.firstName() + " " + faker.name.lastName(),
-            userHandle = faker.funnyName.name(),
-            datePostedTS = 1234234234,
-            contentImage = String.format("https://picsum.photos/%d/%d", 800 + index, 800 - index),
-            location = faker.address.unique.city() + " " + faker.address.country(),
-            title = faker.quote.famousLastWords()
-
-        )
+    val exploreViewModel = viewModel<ExploreViewModel>()
+    var itemList by remember {
+        mutableStateOf<List<ExploreItem>>(listOf())
     }
+    var isLoading by remember {
+        mutableStateOf(false)
+    }
+
+    val itemState= exploreViewModel.items.observeAsState().value
+
+    LaunchedEffect(Unit) {
+        Log.d("LaunchedEffect", "Running")
+        exploreViewModel.getAllItems(1,20)
+    }
+
+    LaunchedEffect(key1 = itemState){
+        itemState?.let {
+            when (it){
+                is ViewState.Failure -> {
+                    isLoading = false
+                }
+                ViewState.Loading -> {
+                    isLoading = true
+                }
+                is ViewState.Success -> {
+                    isLoading = false
+                    itemList += it.data
+                    Log.d("ExploreTab", "ExploreTab: " + itemList)
+                }
+                null -> {
+
+                }
+            }
+        }
+
+    }
+
+
+
     Surface(modifier = Modifier.fillMaxSize()) {
         val scrollState = rememberLazyListState()
         LazyColumn(state = scrollState) {
-            items(datas) { item ->
+            items(itemList) { item ->
                 ExploreItem(exploreItem = item)
             }
         }
@@ -49,6 +87,9 @@ fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
             onScrollUp(true)
         }
 
+        if(isLoading){
+            LoadingView()
+        }
 
     }
 }
