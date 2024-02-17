@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import au.com.monk.traveldiaries.R
-import au.com.monk.traveldiaries.data.ErrorResponse
-import au.com.monk.traveldiaries.data.User
-import au.com.monk.traveldiaries.data.ViewState
+import au.com.monk.traveldiaries.data.generic.ErrorResponse
+import au.com.monk.traveldiaries.data.UserAccount
+import au.com.monk.traveldiaries.data.generic.ViewState
 import au.com.monk.traveldiaries.repositories.LoginRepository
 import au.com.monk.traveldiaries.repositories.LoginRepositoryImpl
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -28,11 +28,11 @@ class LoginViewModel() : BaseViewModel() {
         repository = LoginRepositoryImpl()
     }
 
-    fun createUser(user: User, password: String) {
+    fun createUser(userAccount: UserAccount, password: String) {
         viewModelScope.launch {
             _userAccount.value = ViewState.Loading
             try {
-                val response = repository.createFirebaseUser(user, password)
+                val response = repository.createFirebaseUser(userAccount, password)
                 response.result?.let {
                     _userAccount.value = ViewState.Success(it)
                 }

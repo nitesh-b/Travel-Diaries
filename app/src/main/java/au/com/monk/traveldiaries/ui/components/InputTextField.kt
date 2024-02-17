@@ -38,8 +38,12 @@ fun InputTextField(
     inputValue: String,
     onValueChanged: (String) -> Unit,
     modifier: Modifier = Modifier.padding(vertical = 2.dp),
-    label: String,
+    label: String = "",
     isSecure: Boolean = false,
+    textColor: Color = MaterialTheme.colorScheme.onBackground,
+    backgroundColor: Color = MaterialTheme.colorScheme.background, // Custom focused border color
+    focusedBorderColor: Color = MaterialTheme.colorScheme.primary,
+    unfocusedBorderColor: Color = MaterialTheme.colorScheme.secondary,
     textAlign: TextAlign? = TextAlign.Start
 
     ) {
@@ -53,10 +57,10 @@ fun InputTextField(
             .fillMaxWidth()
             .wrapContentHeight(),
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = MaterialTheme.colorScheme.onBackground,
-            backgroundColor = MaterialTheme.colorScheme.background, // Custom focused border color
-            focusedBorderColor = MaterialTheme.colorScheme.primary,
-            unfocusedBorderColor = MaterialTheme.colorScheme.secondary
+            textColor = textColor,
+            backgroundColor = backgroundColor, // Custom focused border color
+            focusedBorderColor = focusedBorderColor,
+            unfocusedBorderColor = unfocusedBorderColor
         ),
         label = { Text(text = label) },
         shape = RoundedCornerShape(8.dp),

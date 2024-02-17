@@ -1,6 +1,6 @@
 package au.com.monk.traveldiaries.repositories
 
-import au.com.monk.traveldiaries.data.ResponseBody
+import au.com.monk.traveldiaries.data.generic.ResponseBody
 import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
 
 interface ExploreRepository {

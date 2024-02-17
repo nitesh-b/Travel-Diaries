@@ -84,9 +84,19 @@ dependencies {
     implementation("com.airbnb.android:lottie-compose:4.0.0")
 
     //faker
-    //implementation("net.datafaker:datafaker:2.0.2")
-
     implementation ("io.github.serpro69:kotlin-faker:1.15.0")
+
+        //Video player
+    val media3_version = "1.2.1"
+    // For media playback using ExoPlayer
+    implementation("androidx.media3:media3-exoplayer:$media3_version")
+    // For ad insertion using the Interactive Media Ads SDK with ExoPlayer
+    implementation("androidx.media3:media3-exoplayer-ima:$media3_version")
+    // For DASH playback support with ExoPlayer
+    implementation("androidx.media3:media3-exoplayer-dash:$media3_version")
+    implementation("androidx.media3:media3-ui:$media3_version")
+
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

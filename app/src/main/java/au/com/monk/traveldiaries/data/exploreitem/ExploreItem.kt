@@ -5,8 +5,8 @@ data class ExploreItem(
     val userImageThumbnail: String,
     val userName: String,
     val userHandle: String,
-    val datePostedTS: Long,
-    val content: List<ExploreItemType>,
+    val dateUploadedTS: Long,
+    val content: List<Image>,
     val location: String,
     val title: String?,
     val hasFistBump: Boolean

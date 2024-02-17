@@ -37,11 +37,10 @@ import au.com.monk.traveldiaries.ui.components.InputTextField
 import au.com.monk.traveldiaries.ui.components.RegularButton
 import au.com.monk.traveldiaries.ui.theme.TravelDiariesTheme
 import au.com.monk.traveldiaries.viewmodels.LoginViewModel
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import au.com.monk.traveldiaries.data.ViewState
+import au.com.monk.traveldiaries.data.generic.ViewState
 import au.com.monk.traveldiaries.routes.Route
 import au.com.monk.traveldiaries.ui.components.LoadingView
 

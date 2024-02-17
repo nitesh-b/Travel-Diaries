@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import au.com.monk.traveldiaries.R
-import au.com.monk.traveldiaries.data.ViewState
+import au.com.monk.traveldiaries.data.generic.ViewState
 import au.com.monk.traveldiaries.routes.Route
 import au.com.monk.traveldiaries.viewmodels.LoginViewModel
 

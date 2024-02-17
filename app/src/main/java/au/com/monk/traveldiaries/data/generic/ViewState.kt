@@ -1,4 +1,4 @@
-package au.com.monk.traveldiaries.data
+package au.com.monk.traveldiaries.data.generic
 
 sealed class ViewState<out T>{
     object Loading : ViewState<Nothing>()

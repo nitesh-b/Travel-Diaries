@@ -28,6 +28,7 @@ import au.com.monk.traveldiaries.types.CarouselContentType
 import au.com.monk.traveldiaries.ui.components.Carousel
 import au.com.monk.traveldiaries.ui.components.TextLabel
 import au.com.monk.traveldiaries.ui.components.TextStyle
+import au.com.monk.traveldiaries.ui.screens.tabs.ExperienceTab
 import au.com.monk.traveldiaries.ui.screens.tabs.ExploreTab
 import io.github.serpro69.kfaker.faker
 import kotlin.random.Random
@@ -90,7 +91,7 @@ fun TabNavigator() {
                 }
                 1 -> {
                     // Content for Tab 2
-                    Text(text = "Tab 2 Content")
+                    ExperienceTab()
                 }
                 2 -> {
                     // Content for Tab 3

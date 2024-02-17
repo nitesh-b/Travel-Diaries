@@ -17,15 +17,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.lifecycle.viewmodel.compose.viewModel
-import au.com.monk.traveldiaries.data.ViewState
+import au.com.monk.traveldiaries.data.generic.ViewState
 import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
-import au.com.monk.traveldiaries.data.exploreitem.ExploreItemType
-import au.com.monk.traveldiaries.enums.ItemTypeEnum
-import au.com.monk.traveldiaries.ui.components.ExploreItem
+import au.com.monk.traveldiaries.ui.components.ExploreItemView
 import au.com.monk.traveldiaries.ui.components.LoadingView
 import au.com.monk.traveldiaries.viewmodels.ExploreViewModel
-import io.github.serpro69.kfaker.faker
-import java.util.UUID
 
 @Composable
 fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
@@ -40,7 +36,6 @@ fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
     val itemState= exploreViewModel.items.observeAsState().value
 
     LaunchedEffect(Unit) {
-        Log.d("LaunchedEffect", "Running")
         exploreViewModel.getAllItems(1,20)
     }
 
@@ -56,7 +51,8 @@ fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
                 is ViewState.Success -> {
                     isLoading = false
                     itemList += it.data
-                    Log.d("ExploreTab", "ExploreTab: " + itemList)
+                    Log.d("ExploreTab", "ExploreTab: " + itemList[5].content[0].thumbnail)
+
                 }
                 null -> {
 
@@ -66,13 +62,11 @@ fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
 
     }
 
-
-
     Surface(modifier = Modifier.fillMaxSize()) {
         val scrollState = rememberLazyListState()
         LazyColumn(state = scrollState) {
             items(itemList) { item ->
-                ExploreItem(exploreItem = item)
+                ExploreItemView(exploreItem = item)
             }
         }
         val density = LocalDensity.current.density
@@ -86,10 +80,8 @@ fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
         }else if(scrollPosition.value == 0){
             onScrollUp(true)
         }
+        if(isLoading) LoadingView()
 
-        if(isLoading){
-            LoadingView()
-        }
 
     }
 }

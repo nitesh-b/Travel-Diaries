@@ -35,15 +35,14 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import au.com.monk.traveldiaries.R
 import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
-import au.com.monk.traveldiaries.data.exploreitem.ExploreItemType
+import au.com.monk.traveldiaries.data.exploreitem.Image
 import au.com.monk.traveldiaries.enums.ItemTypeEnum
 import au.com.monk.traveldiaries.ui.theme.black40
 import coil.compose.AsyncImage
 import java.util.UUID
-import kotlin.random.Random
 
 @Composable
-fun ExploreItem(exploreItem: ExploreItem) {
+fun ExploreItemView(exploreItem: ExploreItem) {
     var sizeImage by remember { mutableStateOf(IntSize.Zero) }
     val gradient = Brush.verticalGradient(
         colors = listOf(Color.Transparent, Color.Transparent, Color.Black),
@@ -79,7 +78,7 @@ fun ExploreItem(exploreItem: ExploreItem) {
             Spacer(Modifier.weight(1F))
             CircularProgressBarWithImage(0.5F)
             Spacer(Modifier.width(4.dp))
-            TextLabel(title = exploreItem.datePostedTS.toString(), style = TextStyle.Small)
+            TextLabel(title = exploreItem.dateUploadedTS.toString(), style = TextStyle.Small)
 
         }
 
@@ -172,15 +171,15 @@ fun ExploreItem(exploreItem: ExploreItem) {
 @Preview
 @Composable
 fun PreviewExploreItem() {
-    ExploreItem(
+    ExploreItemView(
         ExploreItem(
             id = UUID.randomUUID().toString(),
             "https://picsum.photos/200",
             userName = "Rahat Ali",
             userHandle = "@Rahat554",
-            datePostedTS = 4564958,
-            content = listOf<ExploreItemType>(
-                ExploreItemType(
+            dateUploadedTS = 4564958,
+            content = listOf<Image>(
+                Image(
                     "https://picsum.photos/600",
                     ItemTypeEnum.Image,
                     UUID.randomUUID().toString(),

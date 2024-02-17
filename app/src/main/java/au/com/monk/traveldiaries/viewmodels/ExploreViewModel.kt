@@ -5,13 +5,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import au.com.monk.traveldiaries.data.ErrorResponse
-import au.com.monk.traveldiaries.data.ViewState
+import au.com.monk.traveldiaries.data.generic.ErrorResponse
+import au.com.monk.traveldiaries.data.generic.ViewState
 import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
 import au.com.monk.traveldiaries.repositories.ExploreRepository
 import au.com.monk.traveldiaries.repositories.ExploreRepositoryImpl
-import com.google.android.gms.common.api.Response
-import faker.com.fasterxml.jackson.databind.json.JsonMapper
 import kotlinx.coroutines.launch
 
 class ExploreViewModel : BaseViewModel() {

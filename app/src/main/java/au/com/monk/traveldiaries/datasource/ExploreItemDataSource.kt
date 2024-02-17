@@ -1,10 +1,10 @@
 package au.com.monk.traveldiaries.datasource
 
 import android.util.Log
-import au.com.monk.traveldiaries.data.ErrorResponse
-import au.com.monk.traveldiaries.data.ResponseBody
+import au.com.monk.traveldiaries.data.generic.ErrorResponse
+import au.com.monk.traveldiaries.data.generic.ResponseBody
 import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
-import au.com.monk.traveldiaries.data.exploreitem.ExploreItemType
+import au.com.monk.traveldiaries.data.exploreitem.Image
 import au.com.monk.traveldiaries.enums.ItemTypeEnum
 
 import io.github.serpro69.kfaker.faker
@@ -28,9 +28,9 @@ class ExploreItemDataSource {
                     userImageThumbnail = String.format("https://picsum.photos/%d/%d", 100, 100),
                     userName = faker.name.firstName() + " " + faker.name.lastName(),
                     userHandle = faker.funnyName.name(),
-                    datePostedTS = 1234234234,
-                    content = listOf<ExploreItemType>(
-                        ExploreItemType(thumbnail = String.format("https://picsum.photos/%d/%d", 800 + index, 800 - index),
+                    dateUploadedTS = 1234234234,
+                    content = listOf<Image>(
+                        Image(thumbnail = String.format("https://picsum.photos/%d/%d", 800 + index, 800 - index),
                             type = ItemTypeEnum.Image, id = UUID.randomUUID().toString(), false)
                     ),
                     location = faker.address.unique.city() + " " + faker.address.country(),

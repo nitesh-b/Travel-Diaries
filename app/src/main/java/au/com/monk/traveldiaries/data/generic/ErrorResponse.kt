@@ -1,4 +1,4 @@
-package au.com.monk.traveldiaries.data
+package au.com.monk.traveldiaries.data.generic
 
 class ErrorResponse(detail: String, val errorCode: Int) : Exception(detail) {
 
