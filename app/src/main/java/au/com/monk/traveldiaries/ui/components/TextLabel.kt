@@ -12,7 +12,7 @@ import au.com.monk.traveldiaries.ui.theme.Typography
 
 
 enum class TextStyle{
-    H1, H2, H3, H4, H5, H6, Regular, Small, Medium, Large
+     H1, H2, H3, H4, H5, H6, Regular, Small, Large
 }
 @Composable
 fun TextLabel(modifier: Modifier = Modifier,
@@ -24,31 +24,28 @@ fun TextLabel(modifier: Modifier = Modifier,
     val textStyle: androidx.compose.ui.text.TextStyle
     when(style){
         H1 -> {
-           textStyle =  MaterialTheme.typography.h1
+           textStyle =  Typography.titleLarge
         }
         H2 -> {
-            textStyle = MaterialTheme.typography.h2
+            textStyle = Typography.titleMedium
         }
         H3 -> {
-            textStyle = MaterialTheme.typography.h3
+            textStyle = Typography.titleSmall
         }
         H4 -> {
-            textStyle = MaterialTheme.typography.h4
+            textStyle = Typography.headlineLarge
         }
         H5 -> {
-            textStyle = MaterialTheme.typography.h5
+            textStyle = Typography.headlineMedium
         }
         H6 -> {
-            textStyle = MaterialTheme.typography.h6
+            textStyle = Typography.headlineSmall
         }
         Regular -> {
             textStyle = Typography.bodyMedium
         }
         Small -> {
             textStyle = Typography.bodySmall
-        }
-        Medium -> {
-            textStyle = Typography.bodyMedium
         }
         Large -> {
             textStyle = Typography.bodyLarge

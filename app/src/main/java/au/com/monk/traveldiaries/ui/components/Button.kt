@@ -1,33 +1,30 @@
 package au.com.monk.traveldiaries.ui.components
 
-import android.graphics.drawable.Drawable
-import android.widget.Button
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-
 import androidx.compose.material.Text
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import au.com.monk.traveldiaries.R
+import au.com.monk.traveldiaries.ui.theme.black80
+import au.com.monk.traveldiaries.ui.theme.primary_L
 
 
 enum class ButtonType {
     Primary,
     Secondary,
-    Plain
+    Plain,
+    Custom
 }
 
 
@@ -36,6 +33,8 @@ fun RegularButton(
     type: ButtonType,
     modifier: Modifier = Modifier,
     title: String,
+    foreground: Color = black80,
+    background: Color = primary_L,
     image: Int? = null,
     onClick: () -> Unit,
 ) {
@@ -54,6 +53,12 @@ fun RegularButton(
         backgroundColor = MaterialTheme.colorScheme.secondary,
         contentColor = MaterialTheme.colorScheme.onSecondary,
     )
+
+
+    val custom = ButtonDefaults.buttonColors(
+        backgroundColor = background,
+        contentColor = foreground,
+    )
     Button(
         modifier = modifier,
         onClick = {
@@ -64,6 +69,8 @@ fun RegularButton(
                 primaryButtonColor
             } else if (type == ButtonType.Secondary) {
                 secondaryButtonColor
+            } else if (type == ButtonType.Custom) {
+                custom
             } else {
             plainButtonColor
             }

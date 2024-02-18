@@ -38,6 +38,7 @@ import au.com.monk.traveldiaries.types.CarouselContentType
 import coil.compose.AsyncImage
 import kotlin.math.absoluteValue
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Carousel(modifier: Modifier = Modifier, carouselContents: List<CarouselContentType>) {
     val pagerState = rememberPagerState(pageCount = { carouselContents.size }, initialPage = 1)
@@ -75,7 +76,7 @@ fun Carousel(modifier: Modifier = Modifier, carouselContents: List<CarouselConte
                 )
 Column(modifier = Modifier.padding(4.dp)) {
     TextLabel(title = carouselContents[page].title, style = TextStyle.Small)
-    TextLabel(title = carouselContents[page].subTitle, style = TextStyle.Medium)
+    TextLabel(title = carouselContents[page].subTitle, style = TextStyle.Regular)
     Rating(rating = carouselContents[page].rating, size = 16.dp)
 }
 

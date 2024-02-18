@@ -1,6 +1,5 @@
 package au.com.monk.traveldiaries.ui.screens.tabs
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -26,6 +25,7 @@ import au.com.monk.traveldiaries.viewmodels.ExploreViewModel
 @Composable
 fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
     val exploreViewModel = viewModel<ExploreViewModel>()
+    val scrollState = rememberLazyListState()
     var itemList by remember {
         mutableStateOf<List<ExploreItem>>(listOf())
     }
@@ -50,9 +50,7 @@ fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
                 }
                 is ViewState.Success -> {
                     isLoading = false
-                    itemList += it.data
-                    Log.d("ExploreTab", "ExploreTab: " + itemList[5].content[0].thumbnail)
-
+                    itemList = it.data
                 }
                 null -> {
 
@@ -62,11 +60,39 @@ fun ExploreTab(onScrollUp: (value: Boolean) -> Unit) {
 
     }
 
+    fun onFistBumpClicked(itemID: String, value: Boolean){
+        itemList = itemList.map { item ->
+            if(item.id == itemID){
+                item.copy(hasFistBump = !value)
+            }else{
+                item
+            }
+        }
+        exploreViewModel.updateWow(itemID, value)
+    }
+
+    fun onPackSuitcaseClicked(itemID: String, value: Boolean){
+        itemList = itemList.map { item ->
+            if(item.id == itemID){
+                item.copy(packSuitcase = !value)
+            }else{
+                item
+            }
+        }
+        exploreViewModel.updatePackSuitCase(itemID, value)
+    }
     Surface(modifier = Modifier.fillMaxSize()) {
-        val scrollState = rememberLazyListState()
+
         LazyColumn(state = scrollState) {
             items(itemList) { item ->
-                ExploreItemView(exploreItem = item)
+                ExploreItemView(exploreItem = item,
+                    onFistBumpClicked = { value ->
+                        onFistBumpClicked(item.id, value)
+                    },
+                    onSuitcaseClicked = { value ->
+                        onPackSuitcaseClicked(item.id, value)
+                    },
+                    )
             }
         }
         val density = LocalDensity.current.density

@@ -2,10 +2,15 @@ package au.com.monk.traveldiaries.data
 
 import au.com.monk.traveldiaries.data.experienceitem.ExperienceItem
 import au.com.monk.traveldiaries.data.experienceitem.Video
+import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
+import au.com.monk.traveldiaries.data.exploreitem.Image
+import au.com.monk.traveldiaries.enums.ItemTypeEnum
 import au.com.monk.traveldiaries.utils.date.DateFormatter
+import io.github.serpro69.kfaker.Faker
 import io.github.serpro69.kfaker.faker
 import java.util.UUID
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 class TestData {
 
@@ -168,10 +173,15 @@ class TestData {
             embeddedContent = null
         )
     )
+
+    private val faker : Faker
+
+    init {
+        faker = faker {  }
+    }
     
 
     fun getFakeUserAccount(): UserAccount {
-        val faker = faker {  }
         val name = faker.name
         val userAccount = UserAccount(
             firstName = name.firstName(),
@@ -223,4 +233,24 @@ class TestData {
         }
         return ExperienceItem(videos, "", "")
     }
+
+    fun getFakeExploreItem(): ExploreItem {
+        val item = ExploreItem(
+            id = UUID.randomUUID().toString(),
+            userImageThumbnail = String.format("https://picsum.photos/%d/%d", 100, 100),
+            userName = faker.name.firstName() + " " + faker.name.lastName(),
+            userHandle = faker.funnyName.name(),
+            dateUploadedTS = DateFormatter.currentTS() - Random.nextInt(0..60*60*24),
+            content = listOf<Image>(
+                Image(thumbnail = String.format("https://picsum.photos/%d/%d", 800 + Random.nextInt(100..800), 800 + Random.nextInt(100..800)),
+                    type = ItemTypeEnum.Image, id = UUID.randomUUID().toString(), false)
+            ),
+            location = faker.address.unique.city() + " " + faker.address.country(),
+            title = faker.quote.famousLastWords(),
+            hasFistBump = Random.nextBoolean(),
+            packSuitcase = Random.nextBoolean()
+        )
+        return item
+    }
+
 }

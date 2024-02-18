@@ -1,7 +1,9 @@
 package au.com.monk.traveldiaries.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Brush
@@ -37,12 +40,18 @@ import au.com.monk.traveldiaries.R
 import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
 import au.com.monk.traveldiaries.data.exploreitem.Image
 import au.com.monk.traveldiaries.enums.ItemTypeEnum
-import au.com.monk.traveldiaries.ui.theme.black40
+import au.com.monk.traveldiaries.ui.theme.primary_L_40
+import au.com.monk.traveldiaries.utils.date.DateFormatter
 import coil.compose.AsyncImage
 import java.util.UUID
 
 @Composable
-fun ExploreItemView(exploreItem: ExploreItem) {
+fun ExploreItemView(
+    exploreItem: ExploreItem,
+    onSuitcaseClicked: (value: Boolean) -> Unit,
+    onFistBumpClicked: (value: Boolean) -> Unit,
+
+    ) {
     var sizeImage by remember { mutableStateOf(IntSize.Zero) }
     val gradient = Brush.verticalGradient(
         colors = listOf(Color.Transparent, Color.Transparent, Color.Black),
@@ -78,7 +87,9 @@ fun ExploreItemView(exploreItem: ExploreItem) {
             Spacer(Modifier.weight(1F))
             CircularProgressBarWithImage(0.5F)
             Spacer(Modifier.width(4.dp))
-            TextLabel(title = exploreItem.dateUploadedTS.toString(), style = TextStyle.Small)
+            TextLabel(
+                title = DateFormatter.timeAgo(exploreItem.dateUploadedTS), style = TextStyle.Small
+            )
 
         }
 
@@ -107,18 +118,20 @@ fun ExploreItemView(exploreItem: ExploreItem) {
                     .background(gradient)
             )
 
-            Icon(
-                painter = painterResource(id = R.drawable.icon_bucket),
+
+
+            Image(painter = painterResource(id = if (exploreItem.packSuitcase) R.drawable.icon_suitcase else R.drawable.icon_suitcase_unfilled),
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(16.dp, 20.dp)
-                    .width(40.dp)
-                    .height(40.dp)
+                    .width(72.dp)
+                    .height(72.dp)
+                    .padding(16.dp)
                     .align(Alignment.TopEnd)
-                    .background(black40, RoundedCornerShape(20.dp))
-                    .padding(8.dp),
-                tint = Color.White
-            )
+                    .clickable(enabled = true, onClick = {
+                        onSuitcaseClicked(exploreItem.packSuitcase)
+                    })
+                    .background(primary_L_40, RoundedCornerShape(100))
+                    .padding(8.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -144,26 +157,24 @@ fun ExploreItemView(exploreItem: ExploreItem) {
                         title = exploreItem.location, style = TextStyle.Small, color = Color.White
                     )
                     Spacer(modifier = Modifier.weight(1F))
-                    Icon(
-                        painter = painterResource(id = R.drawable.icon_fist_bump_open),
+                    Image(painter = painterResource(id = R.drawable.wow),
                         contentDescription = null,
                         modifier = Modifier
-                            .width(40.dp)
-                            .height(40.dp),
-                        tint = Color.White
-                    )
+                            .width(32.dp)
+                            .height(32.dp)
+                            .alpha(if (exploreItem.hasFistBump)  1F else 0.4F)
+                            .clickable(enabled = true, onClick = {
+                                onFistBumpClicked(exploreItem.hasFistBump)
+                            }))
+
                 }
             }
-
         }
-
         Divider(
             Modifier
                 .fillMaxWidth()
                 .padding(2.dp, 4.dp, 2.dp, 4.dp), thickness = 0.5.dp
         )
-
-
     }
 
 }
@@ -171,24 +182,23 @@ fun ExploreItemView(exploreItem: ExploreItem) {
 @Preview
 @Composable
 fun PreviewExploreItem() {
-    ExploreItemView(
-        ExploreItem(
-            id = UUID.randomUUID().toString(),
-            "https://picsum.photos/200",
-            userName = "Rahat Ali",
-            userHandle = "@Rahat554",
-            dateUploadedTS = 4564958,
-            content = listOf<Image>(
-                Image(
-                    "https://picsum.photos/600",
-                    ItemTypeEnum.Image,
-                    UUID.randomUUID().toString(),
-                    false
-                )
-            ),
-            location = "Tokyo Japan",
-            title = "Walking around",
-            hasFistBump = false
-        )
-    )
+    ExploreItemView(ExploreItem(
+        id = UUID.randomUUID().toString(),
+        "https://picsum.photos/200",
+        userName = "Rahat Ali",
+        userHandle = "@Rahat554",
+        dateUploadedTS = 4564958,
+        content = listOf<Image>(
+            Image(
+                "https://picsum.photos/600",
+                ItemTypeEnum.Image,
+                UUID.randomUUID().toString(),
+                false
+            )
+        ),
+        location = "Tokyo Japan",
+        title = "Walking around",
+        hasFistBump = false,
+        packSuitcase = false
+    ), { }, { })
 }

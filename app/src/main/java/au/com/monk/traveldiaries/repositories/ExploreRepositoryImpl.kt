@@ -14,8 +14,8 @@ class ExploreRepositoryImpl : ExploreRepository {
         return dataSource.getExploreItems(pageNo, pageSize)
     }
 
-    override suspend fun updateFistBump(itemId: String, value: Boolean): ResponseBody<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun updateWow(itemId: String, value: Boolean): ResponseBody<Boolean> {
+        return dataSource.updateWow(itemId, value)
     }
 
     override suspend fun addComment(itemId: String, comment: String): ResponseBody<Boolean> {
@@ -23,6 +23,6 @@ class ExploreRepositoryImpl : ExploreRepository {
     }
 
     override suspend fun addToBucketList(itemId: String, value: Boolean): ResponseBody<Boolean> {
-        TODO("Not yet implemented")
+        return dataSource.updatePackSuitcase(itemId, value)
     }
 }

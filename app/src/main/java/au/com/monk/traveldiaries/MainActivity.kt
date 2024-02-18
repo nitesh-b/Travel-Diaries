@@ -28,6 +28,7 @@ class MainActivity : ComponentActivity() {
 
         val loginViewModel: LoginViewModel by viewModels()
         setContent {
+
             TravelDiariesTheme {
                 val navController = rememberNavController()
                 val graph: NavGraph = remember(navController) {

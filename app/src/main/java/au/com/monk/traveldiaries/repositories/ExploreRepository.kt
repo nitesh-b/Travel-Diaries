@@ -5,7 +5,7 @@ import au.com.monk.traveldiaries.data.exploreitem.ExploreItem
 
 interface ExploreRepository {
     suspend fun getExploreItems(pageNo: Int, pageSize: Int): ResponseBody<List<ExploreItem>>
-    suspend fun updateFistBump(itemId: String, value: Boolean): ResponseBody<Boolean>
+    suspend fun updateWow(itemId: String, value: Boolean): ResponseBody<Boolean>
     suspend fun addComment(itemId: String, comment: String): ResponseBody<Boolean>
     suspend fun addToBucketList(itemId: String, value:Boolean): ResponseBody<Boolean>
 

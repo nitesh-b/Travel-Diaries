@@ -30,19 +30,44 @@ import au.com.monk.traveldiaries.ui.components.TextLabel
 import au.com.monk.traveldiaries.ui.components.TextStyle
 import au.com.monk.traveldiaries.ui.screens.tabs.ExperienceTab
 import au.com.monk.traveldiaries.ui.screens.tabs.ExploreTab
+import au.com.monk.traveldiaries.ui.screens.tabs.MyJourneyTab
 import io.github.serpro69.kfaker.faker
 import kotlin.random.Random
 
 @Composable
 fun TabNavigator() {
-    val faker = faker {  }
+    val faker = faker { }
     val tabs = listOf<String>("Explore", "Experience", "My Journey")
     var selectedTabIndex: Int by remember { mutableIntStateOf(0) }
     val carouselContents = listOf<CarouselContentType>(
-        CarouselContentType("A", "https://picsum.photos/600", title = faker.mountain.name(), subTitle = faker.address.fullAddress(), rating = Random.nextFloat() * 10),
-        CarouselContentType("B", "https://picsum.photos/700", title = faker.aquaTeenHungerForce.character(), subTitle = faker.address.fullAddress(), rating = Random.nextFloat() * 10),
-        CarouselContentType("C", "https://picsum.photos/800", title = faker.siliconValley.characters(), subTitle = faker.address.fullAddress(), rating = Random.nextFloat() * 10),
-        CarouselContentType("D", "https://picsum.photos/900", title = faker.halfLife.character(), subTitle = faker.address.fullAddress(), rating = Random.nextFloat() * 10)
+        CarouselContentType(
+            "A",
+            "https://picsum.photos/600",
+            title = faker.mountain.name(),
+            subTitle = faker.address.fullAddress(),
+            rating = Random.nextFloat() * 10
+        ),
+        CarouselContentType(
+            "B",
+            "https://picsum.photos/700",
+            title = faker.aquaTeenHungerForce.character(),
+            subTitle = faker.address.fullAddress(),
+            rating = Random.nextFloat() * 10
+        ),
+        CarouselContentType(
+            "C",
+            "https://picsum.photos/800",
+            title = faker.siliconValley.characters(),
+            subTitle = faker.address.fullAddress(),
+            rating = Random.nextFloat() * 10
+        ),
+        CarouselContentType(
+            "D",
+            "https://picsum.photos/900",
+            title = faker.halfLife.character(),
+            subTitle = faker.address.fullAddress(),
+            rating = Random.nextFloat() * 10
+        )
     )
 
 
@@ -51,14 +76,20 @@ fun TabNavigator() {
     }
 
     Column {
-        TextLabel(title = "Travel Diaries",
-            style = TextStyle.H5
+        TextLabel(
+            title = "Travel Diaries",
+            style = TextStyle.H1,
+            modifier = Modifier.padding(16.dp)
         )
 
-            AnimatedVisibility(visible = isCarouselVisible) {
-            TextLabel(title = "Sponsored", style = TextStyle.Medium )
-            Carousel(modifier = Modifier.fillMaxWidth(),
-                carouselContents = carouselContents)
+        AnimatedVisibility(visible = isCarouselVisible) {
+            Column {
+                TextLabel(title = "Sponsored", style = TextStyle.Regular, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp))
+                Carousel(
+                    modifier = Modifier.fillMaxWidth(),
+                    carouselContents = carouselContents
+                )
+            }
         }
 
 
@@ -89,13 +120,16 @@ fun TabNavigator() {
                         isCarouselVisible = it
                     }
                 }
+
                 1 -> {
                     // Content for Tab 2
+                    isCarouselVisible = false
                     ExperienceTab()
                 }
+
                 2 -> {
-                    // Content for Tab 3
-                    Text(text = "Tab 3 Content")
+                    isCarouselVisible = false
+                    MyJourneyTab()
                 }
             }
 
@@ -103,12 +137,10 @@ fun TabNavigator() {
     }
 
 
-
-
 }
 
 @Preview
 @Composable
-fun previewTabNavigator(){
+fun previewTabNavigator() {
     TabNavigator()
 }

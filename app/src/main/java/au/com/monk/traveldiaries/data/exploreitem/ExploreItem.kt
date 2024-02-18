@@ -9,5 +9,6 @@ data class ExploreItem(
     val content: List<Image>,
     val location: String,
     val title: String?,
-    val hasFistBump: Boolean
+    var hasFistBump: Boolean,
+    var packSuitcase: Boolean
 )
