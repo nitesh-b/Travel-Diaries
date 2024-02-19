@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import au.com.monk.traveldiaries.ui.components.ButtonType
 import au.com.monk.traveldiaries.ui.components.InputTextField
 import au.com.monk.traveldiaries.ui.components.RegularButton
+import au.com.monk.traveldiaries.ui.components.TextLabel
+import au.com.monk.traveldiaries.ui.components.TextStyle
 import au.com.monk.traveldiaries.ui.theme.TravelDiariesTheme
 import au.com.monk.traveldiaries.ui.theme.onPrimary_D
 import au.com.monk.traveldiaries.ui.theme.primary_D
@@ -48,9 +49,9 @@ fun EmailVerificationScreen() {
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                Text(
-                    text = "Verify your email",
-                    style = MaterialTheme.typography.titleMedium,
+                TextLabel(
+                    title = "Verify your email",
+                    style = TextStyle.Regular,
                     color = onPrimary_D
                 )
                 InputTextField(

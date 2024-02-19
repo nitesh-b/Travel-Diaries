@@ -1,29 +1,20 @@
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.TabRow
-import androidx.compose.material.Text
+
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import au.com.monk.traveldiaries.R
 import au.com.monk.traveldiaries.types.CarouselContentType
 import au.com.monk.traveldiaries.ui.components.Carousel
 import au.com.monk.traveldiaries.ui.components.TextLabel
@@ -96,7 +87,7 @@ fun TabNavigator() {
         TabRow(
             selectedTabIndex = selectedTabIndex,
             modifier = Modifier,
-            backgroundColor = MaterialTheme.colorScheme.background
+            containerColor = MaterialTheme.colorScheme.background
         ) {
             tabs.forEachIndexed { index, s ->
                 Tab(
@@ -107,7 +98,7 @@ fun TabNavigator() {
                     },
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    Text(text = tabs[index])
+                    TextLabel(title = tabs[index])
                 }
             }
 

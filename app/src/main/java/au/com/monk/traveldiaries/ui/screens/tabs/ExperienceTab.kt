@@ -1,15 +1,12 @@
 package au.com.monk.traveldiaries.ui.screens.tabs
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Surface
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -18,7 +15,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import au.com.monk.traveldiaries.data.experienceitem.Video
@@ -28,6 +24,7 @@ import au.com.monk.traveldiaries.ui.components.LoadingView
 import au.com.monk.traveldiaries.viewmodels.ExperienceViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 fun ExperienceTab() {
     val viewModel = viewModel<ExperienceViewModel>()
@@ -59,46 +56,37 @@ fun ExperienceTab() {
             }
 
             null -> {
-
-
+                // Handle null state if needed
             }
         }
     })
+
     Surface(modifier = Modifier.fillMaxSize()) {
         val lazyListState = rememberLazyListState()
-        val flingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
-        val autoplayBehaviour = remember {
-            mutableStateOf(-1)
-        }
-        LaunchedEffect(lazyListState.firstVisibleItemIndex) {
-            autoplayBehaviour.value = lazyListState.firstVisibleItemIndex
-        }
+
         Box(
-            modifier = Modifier
-                .fillMaxSize(0.9F)
+            modifier = Modifier.fillMaxSize(0.9F)
         ) {
             LazyColumn(
                 state = lazyListState,
-                flingBehavior = flingBehavior,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                itemsIndexed(items) {index, item ->
-                    Box(
-                        modifier = Modifier
-                            .fillParentMaxSize()
-                    ) {
-                        ExperienceItemView(item, autoPlay = index == autoplayBehaviour.value)
+                modifier = Modifier.fillMaxSize(),
+                content = {
+                    itemsIndexed(items) { index, item ->
+                        val autoPlay = index == lazyListState.firstVisibleItemIndex
+                        Box(
+                            modifier = Modifier.fillParentMaxSize()
+                        ) {
+                            ExperienceItemView(item, autoPlay = autoPlay)
+                        }
                     }
                 }
-            }
+            )
         }
-
-
 
         if (isLoading) LoadingView()
     }
-
 }
+
 
 
 @Preview
