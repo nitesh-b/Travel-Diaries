@@ -19,6 +19,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        resValue("string", "google_maps_api_key", "\"${project.findProperty("GOOGLE_MAPS_API_KEY") ?: ""}\"")
     }
 
     buildTypes {

@@ -1,6 +1,9 @@
 package au.com.monk.traveldiaries.ui.screens.tabs
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +17,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,8 +27,8 @@ import au.com.monk.traveldiaries.ui.components.ExperienceItemView
 import au.com.monk.traveldiaries.ui.components.LoadingView
 import au.com.monk.traveldiaries.viewmodels.ExperienceViewModel
 
-@OptIn(ExperimentalFoundationApi::class)
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ExperienceTab() {
     val viewModel = viewModel<ExperienceViewModel>()
@@ -69,7 +73,16 @@ fun ExperienceTab() {
         ) {
             LazyColumn(
                 state = lazyListState,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .scrollable(
+                        orientation = Orientation.Vertical,
+                        state = lazyListState,
+                        enabled = true,
+                        reverseDirection = false,
+                        // Define the snapping behavior
+                        flingBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
+                    ),
                 content = {
                     itemsIndexed(items) { index, item ->
                         val autoPlay = index == lazyListState.firstVisibleItemIndex
