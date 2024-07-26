@@ -80,7 +80,7 @@ fun ExploreItemView(
                 modifier = Modifier.padding(8.dp)
 
             ) {
-                TextLabel(title = exploreItem.userName, style = TextStyle.Regular)
+                TextLabel(title = exploreItem.userName, style = TextStyle.RegularBold)
                 TextLabel(title = exploreItem.userHandle, style = TextStyle.Small)
 
             }

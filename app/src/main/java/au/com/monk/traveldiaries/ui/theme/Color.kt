@@ -29,6 +29,8 @@ val black20 = Color(0x33000000)
 val black40 = Color(0x66000000)
 val black60 = Color(0x99000000)
 val black80 = Color(0xCC000000)
+val transparent = Color(0x00000000)
+
 
 val primary_L_40 = Color(0x667BD3EA)
 val secondary_L_40 = Color(0x66A1EEBD)      // #A1EEBD - Mint green color

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,12 +23,14 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.ContentScale
@@ -47,14 +50,13 @@ fun Carousel(modifier: Modifier = Modifier, carouselContents: List<CarouselConte
         .wrapContentHeight()) {
         HorizontalPager(
             state = pagerState,
-            contentPadding = PaddingValues(horizontal = 80.dp),
             verticalAlignment = Alignment.CenterVertically,
             key = { index -> index },
         ) { page ->
-            Card(
-                Modifier
-                    .width(230.dp)
-                    .padding(horizontal = 4.dp)
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 0.dp)
                     .graphicsLayer {
                         val pageOffset = (
                                 (pagerState.currentPage - page) + pagerState
@@ -71,10 +73,10 @@ fun Carousel(modifier: Modifier = Modifier, carouselContents: List<CarouselConte
                 AsyncImage(
                     model = carouselContents[page].uri,
                     contentDescription = "Image of mountain",
-                    modifier = Modifier.height(96.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     contentScale = ContentScale.FillWidth
                 )
-Column(modifier = Modifier.padding(4.dp)) {
+Column(modifier = Modifier.padding(12.dp)) {
     TextLabel(title = carouselContents[page].title, style = TextStyle.Small)
     TextLabel(title = carouselContents[page].subTitle, style = TextStyle.Regular)
     Rating(rating = carouselContents[page].rating, size = 16.dp)

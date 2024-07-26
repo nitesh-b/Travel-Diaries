@@ -15,13 +15,14 @@ class ExploreViewModel : BaseViewModel() {
     private val repository: ExploreRepository
 
     private val _items = MutableLiveData<ViewState<List<ExploreItem>>>()
-    val items :LiveData<ViewState<List<ExploreItem>>> get() = _items
+    val items: LiveData<ViewState<List<ExploreItem>>> get() = _items
 
-    init {
-        repository = ExploreRepositoryImpl()
-    }
 
-    fun getAllItems(pageNo: Int, pageSize:Int = 20){
+        init {
+            repository = ExploreRepositoryImpl()
+        }
+
+    fun getAllItems(pageNo: Int, pageSize: Int = 20) {
         _items.value = ViewState.Loading
         viewModelScope.launch {
             try {
@@ -30,49 +31,51 @@ class ExploreViewModel : BaseViewModel() {
                     _items.value = ViewState.Success(it)
                 }
 
-            }catch (error: ErrorResponse){
+            } catch (error: ErrorResponse) {
                 _items.value = ViewState.Failure(error)
             }
         }
     }
 
-    fun updatePackSuitCase(itemID: String, value: Boolean){
+    fun updatePackSuitCase(itemID: String, value: Boolean) {
 
         viewModelScope.launch {
             try {
                 val response: ResponseBody<Boolean> = repository.addToBucketList(itemID, value)
-                response.result?.let {res ->
-                    val updatedList = (_items.value as? ViewState.Success<List<ExploreItem>>)?.data?.map {
-                        if(itemID == it.id){
-                            it.copy(packSuitcase = res)
-                        }else{
-                            it
+                response.result?.let { res ->
+                    val updatedList =
+                        (_items.value as? ViewState.Success<List<ExploreItem>>)?.data?.map {
+                            if (itemID == it.id) {
+                                it.copy(packSuitcase = res)
+                            } else {
+                                it
+                            }
                         }
-                    }
                     _items.value = ViewState.Success(updatedList!!)
                 }
-            }catch (error: ErrorResponse){
+            } catch (error: ErrorResponse) {
                 _items.value = ViewState.Failure(error)
             }
         }
     }
 
-    fun updateWow(itemID: String, value: Boolean){
+    fun updateWow(itemID: String, value: Boolean) {
 
         viewModelScope.launch {
             try {
                 val response: ResponseBody<Boolean> = repository.updateWow(itemID, value)
-                response.result?.let {res ->
-                    val updatedList = (_items.value as? ViewState.Success<List<ExploreItem>>)?.data?.map {
-                        if(itemID == it.id){
-                            it.copy(hasFistBump = res)
-                        }else{
-                            it
+                response.result?.let { res ->
+                    val updatedList =
+                        (_items.value as? ViewState.Success<List<ExploreItem>>)?.data?.map {
+                            if (itemID == it.id) {
+                                it.copy(hasFistBump = res)
+                            } else {
+                                it
+                            }
                         }
-                    }
                     _items.value = ViewState.Success(updatedList!!)
                 }
-            }catch (error: ErrorResponse){
+            } catch (error: ErrorResponse) {
                 _items.value = ViewState.Failure(error)
             }
         }

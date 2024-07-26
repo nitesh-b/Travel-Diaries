@@ -93,21 +93,21 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     ),
     labelLarge = TextStyle(
-        fontFamily = nunitoSans,
+        fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         lineHeight = 14.sp,
         letterSpacing = 0.5.sp
     ),
     labelMedium = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Medium,
         fontSize = 10.sp,
         lineHeight = 16.sp,

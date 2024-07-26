@@ -17,7 +17,7 @@ import au.com.monk.traveldiaries.ui.theme.Typography
 
 
 enum class TextStyle{
-     H1, H2, H3, H4, H5, H6, Regular, Small, Large
+     H1, H2, H3, H4, H5, H6, Regular, Small, Large, RegularBold
 }
 @Composable
 fun TextLabel(modifier: Modifier = Modifier,
@@ -54,6 +54,9 @@ fun TextLabel(modifier: Modifier = Modifier,
         }
         Large -> {
             textStyle = Typography.bodyLarge
+        }
+        TextStyle.RegularBold -> {
+            textStyle = Typography.labelLarge
         }
     }
         Text(text = title, style = textStyle, color = color!!, modifier = modifier, maxLines = maxLines)
